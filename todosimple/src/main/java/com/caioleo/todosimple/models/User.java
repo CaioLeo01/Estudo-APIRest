@@ -11,6 +11,11 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import java.util.Objects;
+import java.util.List;
+import java.util.ArrayList;
+
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -47,7 +52,8 @@ public class User {
     @Size(groups = { CreateUser.class, UpdateUser.class }, min = 8, max = 60)
     private String password;
 
-    // private List<Task> tasks = new ArrayList<Task>();
+    @OneToMany(mappedBy = "user")
+    private List<Task> tasks = new ArrayList<Task>();
 
     public User() {
 
@@ -80,13 +86,23 @@ public class User {
         return this.password;
     }
 
+
+    public List<Task> getTasks() {
+        return this.tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+
     public void setPassword(String password) {
         this.password = password;
     }
 
     @Override
 public boolean equals(Object obj) {
-    if (this == obj) {
+    if (obj == this) {
         return true;  // Se os objetos forem o mesmo, retorna true
     }
     if (obj == null) {
@@ -108,7 +124,7 @@ public boolean equals(Object obj) {
     }
 
     // Retorna true se os ids forem iguais ou ambos nulos
-    return this.username.equals(other.username) && this.password.equals(other.password);
+    return Objects.equals(this.id, other.id) && Objects.equals(this.username, other.username) && Objects.equals(this.password, other.password);
 }
 
 @Override

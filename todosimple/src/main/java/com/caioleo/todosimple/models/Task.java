@@ -13,6 +13,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import java.util.Objects;
 
+
+
 @Entity
 @Table(name = Task.TABLE_NAME)
 public class Task {
@@ -82,19 +84,19 @@ public class Task {
         return this;
     }
 
-    @Override
+   @Override
 public boolean equals(Object obj) {
-    if (this == obj) {
+    if (obj == this) {
         return true;  // Se os objetos forem o mesmo, retorna true
     }
     if (obj == null) {
         return false; // Se o objeto comparado for nulo, retorna false
     }
     if (!(obj instanceof Task)) {
-        return false; // Se o objeto não for uma instância de Task, retorna false
+        return false; // Se o objeto não for uma instância de User, retorna false
     }
 
-    Task other = (Task) obj; // Faz o cast do objeto para a classe Task
+    Task other = (Task) obj; // Faz o cast do objeto para a classe User
 
     // Verifica se o id é diferente entre os objetos
     if (this.id != null) {
@@ -106,7 +108,7 @@ public boolean equals(Object obj) {
     }
 
     // Retorna true se os ids forem iguais ou ambos nulos
-    return this.username.equals(other.username) && this.password.equals(other.password);
+    return Objects.equals(this.id, other.id) && Objects.equals(this.user, other.user) && Objects.equals(this.description, other.description);
 }
 
 @Override
@@ -116,5 +118,5 @@ public int hashCode() {
     result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
     return result;  // Retorna apenas o código de hash do id, como no seu código original
 }
-   
+
 }
