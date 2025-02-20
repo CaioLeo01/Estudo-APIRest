@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.caioleo.todosimple.repositories.TaskRepository;
+
 import com.caioleo.todosimple.repositories.UserRepository;
 import com.caioleo.todosimple.models.User;
 
@@ -17,8 +17,7 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private TaskRepository taskRepository;
+  
 
 
 
@@ -35,7 +34,6 @@ public class UserService {
     public User create(User obj) {
         obj.setId(null);
         obj = this.userRepository.save(obj);
-        this.taskRepository.saveAll(obj.getTasks());
         return obj;
     }
 
@@ -56,3 +54,4 @@ public class UserService {
     }
 
 }
+
