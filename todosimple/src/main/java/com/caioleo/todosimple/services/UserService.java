@@ -22,12 +22,12 @@ public class UserService {
 
 
     public User findById(Long id) {
-        Optional<User> user = Optional.empty();
-        return user.orElseThrow(() -> new RuntimeException(
-            "Usuario nao encontrado! Id: " + id + ",Tipo: " + User.class.getName()
+        Optional<User> user = userRepository.findById(id);  // Busca o usuário no banco de dados
+        return user.orElseThrow(() -> new RuntimeException(  // Lança exceção se não encontrado
+            "Usuario nao encontrado! Id: " + id + ", Tipo: " + User.class.getName()
         ));
-
     }
+    
    
 
     @Transactional
@@ -54,4 +54,5 @@ public class UserService {
     }
 
 }
+
 
